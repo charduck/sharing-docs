@@ -49,7 +49,7 @@ def main():
     inventory = []
     
 
-    hp = 0 
+    hp = 100 
 
     show_instructions()
 
@@ -75,10 +75,7 @@ def main():
             if len(move) > 1:
                 direction = move[1]
                 
-                # NAVIGATION LOGIC
-                if direction == "north":
-                    direction = "south" # Confusing map curse?
-                
+                # NAVIGATION LOGIC        
                 if direction in rooms[current_room]:
                     current_room = rooms[current_room][direction]
                 else:
@@ -100,14 +97,18 @@ def main():
                         hp = hp - 50
                     else:
                         inventory.append(item_wanted)
-                        # NOTE: Item remains in room (Infinite glitch?)
+                        del rooms[current_room]['item']
                 else:
                     print(f"There is no {item_wanted} here.")
             else:
                 print("Get what?")
+
+        elif action == "scan":
+            # print nearby/adjacent rooms OR items in room (eg. scan rooms or scan items)
+            return
         
         # QUIT HANDLER
-        elif action == "qit": 
+        elif action == "quit": 
             break
             
         # TODO: Add Win Condition here. 
